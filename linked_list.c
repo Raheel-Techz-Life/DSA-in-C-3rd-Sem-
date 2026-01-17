@@ -8,6 +8,10 @@ struct Node {
 
 struct Node* createNode(int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
     newNode->data = data;
     newNode->next = NULL;
     return newNode;
@@ -15,12 +19,14 @@ struct Node* createNode(int data) {
 
 void insertAtBeginning(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
+    if (newNode == NULL) return;
     newNode->next = *head;
     *head = newNode;
 }
 
 void insertAtEnd(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
+    if (newNode == NULL) return;
     if (*head == NULL) {
         *head = newNode;
         return;

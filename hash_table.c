@@ -25,6 +25,10 @@ void initHashTable() {
 void insert(int key, int value) {
     int index = hashFunction(key);
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
     newNode->key = key;
     newNode->value = value;
     newNode->next = hashTable[index];
