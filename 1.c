@@ -1,57 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct day {
-    char *dname;
+struct Day {
+    char *day;
     int date;
     char *activity;
 };
 
-struct day* create() {
+struct Day* create() {
+    struct Day *cal = (struct Day*)malloc(7 * sizeof(struct Day));
     int i;
-    struct day *cal = (struct day*)malloc(7 * sizeof(struct day));
-
     for (i = 0; i < 7; i++) {
-        cal[i].dname = (char*)malloc(20 * sizeof(char));
+        cal[i].day = (char*)malloc(20 * sizeof(char));
         cal[i].activity = (char*)malloc(100 * sizeof(char));
     }
     return cal;
 }
 
-void read(struct day *cal) {
+void read(struct Day *cal) {
     int i;
     for (i = 0; i < 7; i++) {
-        printf("Enter day name:\n");
-        scanf("%s", cal[i].dname);
+        printf("Enter the day name for Day %d: ", i + 1);
+        scanf("%s", cal[i].day);
 
-        printf("Enter date:\n");
+        printf("Enter the date for Day %d: ", i + 1);
         scanf("%d", &cal[i].date);
 
-        printf("Enter activity:\n");
+        printf("Enter the activity for Day %d: ", i + 1);
         scanf(" %[^\n]", cal[i].activity);
     }
 }
 
-void display(struct day *cal) {
+void display(struct Day *cal) {
     int i;
-    printf("\nWeekly Activity Details\n");
+    printf("\nWeekly Activity Report:\n\n");
     for (i = 0; i < 7; i++) {
-        printf("\nDay: %s", cal[i].dname);
-        printf("\nDate: %d", cal[i].date);
-        printf("\nActivity: %s\n", cal[i].activity);
+        printf("Day %d: %s\n", i + 1, cal[i].day);
+        printf("Date: %d\n", cal[i].date);
+        printf("Activity: %s\n\n", cal[i].activity);
     }
 }
 
 int main() {
-    struct day *calendar;
     int i;
+    struct Day *calendar;
 
     calendar = create();
     read(calendar);
     display(calendar);
 
     for (i = 0; i < 7; i++) {
-        free(calendar[i].dname);
+        free(calendar[i].day);
         free(calendar[i].activity);
     }
     free(calendar);
