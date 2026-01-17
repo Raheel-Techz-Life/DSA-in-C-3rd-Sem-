@@ -88,5 +88,6 @@ int main() {
     
     display(queue);
     
+    free(queue);
     return 0;
 }

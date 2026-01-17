@@ -133,5 +133,6 @@ int main() {
     BFS(graph, 0);
     DFS(graph, 0);
     
+    free(graph);
     return 0;
 }

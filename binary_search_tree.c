@@ -47,6 +47,9 @@ struct Node* search(struct Node* root, int key) {
 
 // Function to find minimum value node
 struct Node* findMin(struct Node* root) {
+    if (root == NULL) {
+        return NULL;
+    }
     while (root->left != NULL) {
         root = root->left;
     }
@@ -97,12 +100,12 @@ int main() {
     struct Node* root = NULL;
     
     root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
     
     printf("Inorder traversal: ");
     inorder(root);

@@ -82,5 +82,6 @@ int main() {
     
     display(stack);
     
+    free(stack);
     return 0;
 }
