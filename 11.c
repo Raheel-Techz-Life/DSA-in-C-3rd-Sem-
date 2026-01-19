@@ -1,94 +1,96 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int a[20][20], n;
-int visited[20];
+int a[10][10], n;
+int s[10];   // visited array
 
-/* Read graph using adjacency matrix */
-void readGraph() {
-    int i, j;
-    printf("Enter number of vertices:\n");
-    scanf("%d", &n);
+void bfs(int a[10][10], int n, int u)
+{
+    int v, q[10], f = 0, r = -1;
 
-    printf("Enter adjacency matrix:\n");
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
-            scanf("%d", &a[i][j]);
-        }
-    }
-}
+    for (v = 0; v < n; v++)
+        s[v] = 0;
 
-/* Breadth First Search */
-void bfs(int start) {
-    int q[20], front = 0, rear = -1;
-    int i;
+    printf("%d ", u);
+    s[u] = 1;
+    q[++r] = u;
 
-    for (i = 0; i < n; i++)
-        visited[i] = 0;
+    while (f <= r)
+    {
+        u = q[f++];
 
-    q[++rear] = start;
-    visited[start] = 1;
-
-    printf("BFS Traversal: ");
-    while (front <= rear) {
-        start = q[front++];
-        printf("%d ", start);
-
-        for (i = 0; i < n; i++) {
-            if (a[start][i] == 1 && visited[i] == 0) {
-                q[++rear] = i;
-                visited[i] = 1;
+        for (v = 0; v < n; v++)
+        {
+            if (a[u][v] == 1 && s[v] == 0)
+            {
+                printf("%d ", v);
+                s[v] = 1;
+                q[++r] = v;
             }
         }
     }
-    printf("\n");
 }
 
-/* Depth First Search */
-void dfs(int v) {
-    int i;
-    visited[v] = 1;
-    printf("%d ", v);
+void dfs(int u)
+{
+    int v;
+    s[u] = 1;
+    printf("%d ", u);
 
-    for (i = 0; i < n; i++) {
-        if (a[v][i] == 1 && visited[i] == 0) {
-            dfs(i);
-        }
+    for (v = 0; v < n; v++)
+    {
+        if (a[u][v] == 1 && s[v] == 0)
+            dfs(v);
     }
 }
 
-int main() {
-    int choice, start, i;
+int main()
+{
+    int i, j, source, choice;
 
-    readGraph();
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
 
-    while (1) {
-        printf("\n1.BFS\n2.DFS\n3.Exit\n");
-        printf("Enter choice:\n");
+    printf("Enter adjacency matrix:\n");
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    printf("Enter source vertex: ");
+    scanf("%d", &source);
+
+    while (1)
+    {
+        printf("\n1. DFS\n2. BFS\n3. Exit\nEnter choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                printf("Enter starting vertex:\n");
-                scanf("%d", &start);
-                bfs(start);
-                break;
+        for (i = 0; i < n; i++)
+            s[i] = 0;
 
-            case 2:
-                printf("Enter starting vertex:\n");
-                scanf("%d", &start);
-                for (i = 0; i < n; i++)
-                    visited[i] = 0;
-                printf("DFS Traversal: ");
-                dfs(start);
-                printf("\n");
-                break;
+        switch (choice)
+        {
+        case 1:
+            printf("DFS Traversal: ");
+            dfs(source);
+            printf("\n");
+            break;
 
-            case 3:
-                exit(0);
+        case 2:
+            printf("BFS Traversal: ");
+            bfs(a, n, source);
+            printf("\n");
+            break;
 
-            default:
-                printf("Invalid choice\n");
+        case 3:
+            return 0;
+
+        default:
+            printf("Invalid choice!\n");
         }
     }
+
+    return 0;
 }
